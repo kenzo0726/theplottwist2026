@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Plot Twist — Handmade with Love</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Caveat:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brown-dark: #2c1810;
+    --brown-mid: #5c3317;
+    --brown-warm: #8B5E3C;
+    --cream: #f5efe6;
+    --cream-light: #fdf8f2;
+    --pink: #f472b6;
+    --pink-light: #fce7f3;
+    --gold: #d4a853;
+    --text-dark: #2c1810;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Lora', Georgia, serif; background-color: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(44,24,16,0.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(212,168,83,0.3);
+  }
+  .nav-logo { font-family: 'Pacifico', cursive; color: var(--cream); font-size: 1.4rem; text-decoration: none; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--cream); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; overflow: hidden; text-align: center; padding: 6rem 2rem 4rem;
+    background: radial-gradient(ellipse at 20% 50%, rgba(139,94,60,0.4) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(92,51,23,0.5) 0%, transparent 55%),
+                linear-gradient(160deg, #1a0d08 0%, #2c1810 40%, #3d2010 70%, #1a0d08 100%);
+  }
+  .hero-sparkles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .sparkle { position: absolute; color: var(--gold); animation: twinkle 3s infinite ease-in-out; opacity: 0; }
+  @keyframes twinkle { 0%,100%{opacity:0;transform:scale(0.5) rotate(0deg)} 50%{opacity:1;transform:scale(1.2) rotate(20deg)} }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(212,168,83,0.15); border: 1px solid rgba(212,168,83,0.4);
+    border-radius: 999px; padding: 0.4rem 1.2rem;
+    font-family: 'Caveat', cursive; font-size: 1rem; color: var(--gold);
+    margin-bottom: 1.5rem; animation: fadeUp 0.8s ease both;
+  }
+  .hero-title { font-family: 'Pacifico', cursive; font-size: clamp(3rem,8vw,6rem); color: var(--cream); line-height: 1.1; margin-bottom: 1rem; animation: fadeUp 0.9s 0.1s ease both; text-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+  .hero-subtitle { font-family: 'Caveat', cursive; font-size: clamp(1.2rem,3vw,1.8rem); color: rgba(245,239,230,0.8); margin-bottom: 2rem; font-weight: 600; animation: fadeUp 1s 0.2s ease both; }
+  .hero-tagline { font-family: 'Lora', serif; font-style: italic; font-size: 1.05rem; color: rgba(245,239,230,0.6); max-width: 400px; margin: 0 auto 2.5rem; animation: fadeUp 1s 0.3s ease both; }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--gold); color: var(--brown-dark);
+    font-family: 'Caveat', cursive; font-size: 1.2rem; font-weight: 700;
+    padding: 0.8rem 2rem; border-radius: 999px; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(212,168,83,0.4); animation: fadeUp 1s 0.4s ease both;
+  }
+  .hero-cta:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 8px 30px rgba(212,168,83,0.5); }
+  .hero-preview { margin-top: 4rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; animation: fadeUp 1s 0.5s ease both; }
+  .hero-mini { width: 90px; height: 90px; border-radius: 50%; border: 3px solid rgba(212,168,83,0.5); object-fit: cover; object-position: center 30%; transition: transform 0.3s, border-color 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+  .hero-mini:hover { transform: scale(1.15) rotate(-3deg); border-color: var(--gold); }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+  .section-label { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; text-align: center; margin-bottom: 0.5rem; }
+  .section-title { font-family: 'Pacifico', cursive; font-size: clamp(2rem,5vw,3rem); text-align: center; color: var(--brown-dark); margin-bottom: 0.75rem; }
+  .section-sub { font-family: 'Lora', serif; font-style: italic; text-align: center; color: var(--brown-warm); font-size: 1.05rem; margin-bottom: 3.5rem; }
+
+  /* PRODUCTS */
+  #products { background: var(--cream-light); position: relative; }
+  #products::before { content:''; position:absolute; top:0;left:0;right:0; height:4px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+  .product-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(44,24,16,0.08); transition: transform 0.3s, box-shadow 0.3s, opacity 0.55s, translate 0.55s; cursor: pointer; opacity: 0; transform: translateY(30px); }
+  .product-card:hover { transform: translateY(-8px) scale(1.02) !important; box-shadow: 0 16px 40px rgba(44,24,16,0.15); }
+  .product-card.visible { opacity: 1; transform: translateY(0); }
+  .product-img-wrap { position: relative; aspect-ratio: 3/4; overflow: hidden; }
+  .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform 0.4s ease; }
+  .product-card:hover .product-img-wrap img { transform: scale(1.07); }
+  .product-tag { position: absolute; top: 12px; left: 12px; background: rgba(44,24,16,0.85); color: var(--gold); font-family: 'Caveat', cursive; font-size: 0.85rem; padding: 0.25rem 0.7rem; border-radius: 999px; backdrop-filter: blur(4px); }
+  .product-info { padding: 1.2rem 1.4rem 1.6rem; border-top: 2px solid var(--cream); }
+  .product-name { font-family: 'Caveat', cursive; font-size: 1.3rem; font-weight: 700; color: var(--brown-dark); margin-bottom: 0.35rem; }
+  .product-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 0.4rem; vertical-align: middle; }
+  .product-desc { font-family: 'Lora', serif; font-size: 0.85rem; color: var(--brown-warm); font-style: italic; line-height: 1.5; }
+  .product-price { margin-top: 0.65rem; font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--brown-dark); font-weight: 700; }
+  .product-sold { color: #9f1239; font-family: 'Caveat', cursive; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.5px; }
+  .product-sold-badge {
+    position: absolute; top: 12px; right: 12px; background: rgba(159,18,57,0.9);
+    color: #fff1f2; font-family: 'Caveat', cursive; font-size: 0.85rem;
+    padding: 0.3rem 0.8rem; border-radius: 999px; text-transform: uppercase;
+  }
+  .product-card.sold-out { opacity: 0.75; }
+  .product-card.sold-out .product-img-wrap img { filter: grayscale(40%); }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(26,13,8,0.85); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 2rem; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--cream-light); border-radius: 24px; max-width: 480px; width: 100%; overflow: hidden; position: relative; animation: modalPop 0.3s ease; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  @keyframes modalPop { from{opacity:0;transform:scale(0.85)} to{opacity:1;transform:scale(1)} }
+  .modal-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center 20%; }
+  .modal-body { padding: 1.5rem 2rem 2rem; }
+  .modal-name { font-family: 'Pacifico', cursive; font-size: 1.7rem; color: var(--brown-dark); margin-bottom: 0.5rem; }
+  .modal-desc { font-family: 'Lora', serif; font-style: italic; color: var(--brown-warm); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.2rem; }
+  .modal-price { font-family: 'Caveat', cursive; font-size: 1.3rem; color: var(--brown-dark); font-weight: 700; margin-bottom: 0.4rem; }
+  .modal-sold { font-family: 'Caveat', cursive; font-size: 1rem; font-weight: 700; color: #9f1239; margin-bottom: 0.8rem; }
+  .modal-features { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .modal-chip { background: var(--pink-light); color: #9d174d; font-family: 'Caveat', cursive; font-size: 0.9rem; padding: 0.25rem 0.8rem; border-radius: 999px; font-weight: 600; }
+  .modal-close { position: absolute; top: 12px; right: 14px; background: rgba(44,24,16,0.7); color: var(--cream); border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 10; }
+  .modal-close:hover { background: var(--brown-dark); }
+
+  /* ABOUT */
+  #about { background: linear-gradient(160deg, #1a0d08 0%, #2c1810 50%, #1a0d08 100%); position: relative; overflow: hidden; }
+  #about::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 30% 50%, rgba(212,168,83,0.08) 0%, transparent 60%); }
+  #about .section-title { color: var(--cream); }
+  #about .section-sub { color: rgba(245,239,230,0.6); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 900px; margin: 0 auto; align-items: center; }
+  .about-text { color: rgba(245,239,230,0.85); line-height: 1.85; font-size: 1.02rem; }
+  .about-text p { margin-bottom: 1.2rem; }
+  .about-text em { color: var(--gold); font-style: italic; }
+  .about-quote { background: rgba(212,168,83,0.1); border-left: 3px solid var(--gold); padding: 1.5rem; border-radius: 0 16px 16px 0; font-family: 'Caveat', cursive; font-size: 1.25rem; color: var(--cream); font-weight: 600; line-height: 1.5; }
+  .about-badges { display: flex; flex-direction: column; gap: 1.2rem; }
+  .about-badge { display: flex; align-items: center; gap: 1rem; background: rgba(245,239,230,0.06); border: 1px solid rgba(212,168,83,0.2); border-radius: 16px; padding: 1rem 1.3rem; transition: background 0.2s; }
+  .about-badge:hover { background: rgba(245,239,230,0.1); }
+  .about-badge-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .about-badge-text strong { display: block; font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.2rem; }
+  .about-badge-text span { font-size: 0.88rem; color: rgba(245,239,230,0.65); font-family: 'Lora', serif; font-style: italic; }
+
+  /* CONTACT */
+  #contact { background: var(--cream); }
+  .contact-card { max-width: 600px; margin: 0 auto; background: white; border-radius: 24px; padding: 3rem; box-shadow: 0 8px 40px rgba(44,24,16,0.1); text-align: center; position: relative; overflow: hidden; }
+  .contact-card::before { content:''; position:absolute; top:0;left:0;right:0; height:4px; background: linear-gradient(90deg, var(--pink), var(--gold), var(--pink)); }
+  .contact-tag { font-family: 'Caveat', cursive; font-size: 1.2rem; color: var(--brown-warm); font-style: italic; margin-bottom: 2rem; line-height: 1.6; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+  .contact-link { display: flex; align-items: center; gap: 0.75rem; background: var(--cream); padding: 0.9rem 1.4rem; border-radius: 12px; text-decoration: none; color: var(--brown-dark); font-family: 'Caveat', cursive; font-size: 1.1rem; font-weight: 600; transition: background 0.2s, transform 0.2s; }
+  .contact-link:hover { background: var(--pink-light); transform: translateX(4px); }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-top: 1.5rem; border-top: 1px dashed rgba(139,94,60,0.25); padding-top: 1.5rem; }
+  .contact-form label { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--brown-warm); font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .contact-form input, .contact-form textarea { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid rgba(139,94,60,0.2); border-radius: 10px; font-family: 'Lora', serif; font-size: 0.9rem; color: var(--brown-dark); background: var(--cream-light); outline: none; transition: border-color 0.2s; resize: vertical; }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: var(--gold); }
+  .contact-submit { background: var(--brown-dark); color: var(--cream); font-family: 'Caveat', cursive; font-size: 1.1rem; font-weight: 700; padding: 0.85rem 2rem; border: none; border-radius: 999px; cursor: pointer; transition: background 0.2s, transform 0.2s; align-self: center; }
+  .contact-submit:hover { background: var(--brown-mid); transform: scale(1.04); }
+
+  /* FOOTER */
+  footer { background: var(--brown-dark); color: rgba(245,239,230,0.6); text-align: center; padding: 2.5rem 2rem; font-family: 'Caveat', cursive; font-size: 1rem; }
+  .footer-logo { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: var(--cream); margin-bottom: 0.5rem; }
+  .footer-logo span { color: var(--gold); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ADMIN */
+  .admin-overlay { display: none; position: fixed; inset: 0; z-index: 250; background: rgba(26,13,8,0.85); backdrop-filter: blur(6px); align-items: flex-start; justify-content: center; padding: 6rem 2rem 2rem; }
+  .admin-overlay.open { display: flex; }
+  .admin-wrap { max-width: 1100px; width: 100%; background: #fff; border-radius: 24px; box-shadow: 0 12px 40px rgba(44,24,16,0.12); padding: 2rem; border: 1px solid rgba(212,168,83,0.2); max-height: 85vh; overflow: auto; position: relative; }
+  .admin-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+  .admin-title { font-family: 'Pacifico', cursive; font-size: 1.6rem; color: var(--brown-dark); }
+  .admin-status { font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--brown-warm); }
+  .admin-login { display: grid; grid-template-columns: 1fr auto; gap: 0.75rem; }
+  .admin-login input { padding: 0.7rem 1rem; border: 1.5px solid rgba(139,94,60,0.25); border-radius: 10px; font-family: 'Lora', serif; }
+  .admin-btn { background: var(--brown-dark); color: var(--cream); border: none; border-radius: 999px; padding: 0.65rem 1.4rem; font-family: 'Caveat', cursive; font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.2s, background 0.2s; }
+  .admin-btn:hover { background: var(--brown-mid); transform: translateY(-2px); }
+  .admin-panel { display: none; }
+  .admin-panel.active { display: block; }
+  .admin-form { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+  .admin-form label { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--brown-warm); font-weight: 700; display: block; margin-bottom: 0.3rem; }
+  .admin-form input, .admin-form textarea, .admin-form select {
+    width: 100%; padding: 0.7rem 0.9rem; border: 1.5px solid rgba(139,94,60,0.2); border-radius: 12px; font-family: 'Lora', serif; background: var(--cream-light);
+  }
+  .admin-form textarea { resize: vertical; min-height: 90px; }
+  .admin-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .admin-list { border-top: 1px dashed rgba(139,94,60,0.25); padding-top: 1.5rem; }
+  .admin-item { display: grid; grid-template-columns: 1fr auto; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px dashed rgba(139,94,60,0.2); align-items: center; }
+  .admin-item:last-child { border-bottom: none; }
+  .admin-item-title { font-family: 'Caveat', cursive; font-size: 1.1rem; font-weight: 700; color: var(--brown-dark); }
+  .admin-item-meta { font-family: 'Lora', serif; font-size: 0.85rem; color: var(--brown-warm); }
+  .admin-item-actions { display: flex; gap: 0.5rem; }
+  .admin-item-actions button { padding: 0.4rem 0.9rem; font-size: 0.9rem; }
+  .admin-close { position: absolute; top: 14px; right: 16px; width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(44,24,16,0.1); color: var(--brown-dark); font-size: 1.2rem; cursor: pointer; transition: background 0.2s; }
+  .admin-close:hover { background: rgba(44,24,16,0.2); }
+
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .product-grid { grid-template-columns: repeat(2,1fr); gap: 1rem; }
+    .hero-mini { width: 65px; height: 65px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-card { padding: 2rem 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .nav-links { display: none; }
+    .product-grid { grid-template-columns: repeat(2,1fr); gap: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">The Plot <span>Twist</span></a>
+  <ul class="nav-links">
+    <li><a href="#products">Shop</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#admin" id="adminNav">Admin</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-sparkles" id="sparkles"></div>
+  <div class="hero-badge">✨ handmade with love ✨</div>
+  <h1 class="hero-title">The Plot Twist</h1>
+  <p class="hero-subtitle">♥ tiny keychains, big personalities ♥</p>
+  <p class="hero-tagline">Tiny handmade creations, each with its own little story.</p>
+  <a href="#products" class="hero-cta">Browse the Collection 🍒</a>
+  <div class="hero-preview">
+    <img class="hero-mini" src="images/pink-donut-charm.png" alt="Pink Donut">
+    <img class="hero-mini" src="images/blue-jellyfish.png" alt="Blue Jellyfish">
+    <img class="hero-mini" src="images/cherry-duo.png" alt="Cherry Duo">
+    <img class="hero-mini" src="images/white-tulip.png" alt="Sunflower">
+    <img class="hero-mini" src="images/silly-blue-frog.png" alt="Blue Frog">
+  </div>
+</section>
+
+<section id="products">
+  <div class="section-label">✦ our collection ✦</div>
+  <h2 class="section-title">Handmade Keychains</h2>
+  <p class="section-sub">Every piece is one-of-a-kind — soft, fuzzy, and full of heart.</p>
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">✕</button>
+    <img class="modal-img" id="modalImg" src="" alt="">
+    <div class="modal-body">
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-price" id="modalPrice"></div>
+      <div class="modal-sold" id="modalSold"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-features">
+        <span class="modal-chip">♥ soft & fuzzy</span>
+        <span class="modal-chip">✦ unique & handmade</span>
+        <span class="modal-chip">🌿 crafted with love</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="admin-overlay" id="adminOverlay" aria-hidden="true">
+  <div class="admin-wrap" id="admin">
+    <button class="admin-close" id="adminClose" aria-label="Close admin">✕</button>
+    <div class="admin-header">
+      <div>
+        <div class="admin-title">Admin Studio</div>
+        <div class="admin-status" id="adminStatus">Login to add or update products.</div>
+      </div>
+      <div class="admin-login" id="adminLogin">
+        <input type="password" id="adminPassword" placeholder="Admin password" autocomplete="current-password">
+        <button class="admin-btn" id="adminLoginBtn">Unlock</button>
+      </div>
+      <button class="admin-btn" id="adminLogoutBtn" style="display:none;">Log out</button>
+    </div>
+
+    <div class="admin-panel" id="adminPanel">
+      <form class="admin-form" id="adminForm">
+        <div>
+          <label for="productName">Product name</label>
+          <input id="productName" type="text" required placeholder="e.g. Pink Donut Charm">
+        </div>
+        <div>
+          <label for="productPrice">Price</label>
+          <input id="productPrice" type="text" required placeholder="e.g. $6">
+        </div>
+        <div>
+          <label for="productImage">Image path or URL</label>
+          <input id="productImage" type="text" required placeholder="images/pink-donut-charm.png">
+        </div>
+        <div>
+          <label for="productTag">Tag label</label>
+          <input id="productTag" type="text" placeholder="Bestseller ✨">
+        </div>
+        <div>
+          <label for="productDot">Dot color</label>
+          <input id="productDot" type="text" placeholder="#f472b6">
+        </div>
+        <div>
+          <label for="productStatus">Availability</label>
+          <select id="productStatus">
+            <option value="available">Available</option>
+            <option value="sold">Sold out</option>
+          </select>
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <label for="productDesc">Description</label>
+          <textarea id="productDesc" required placeholder="Short, dreamy description..."></textarea>
+        </div>
+        <input type="hidden" id="productId">
+      </form>
+      <div class="admin-actions">
+        <button class="admin-btn" id="saveProductBtn">Save product</button>
+        <button class="admin-btn" id="resetFormBtn" type="button">Clear form</button>
+      </div>
+
+      <div class="admin-list" id="adminList"></div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="section-label">✦ our story ✦</div>
+  <h2 class="section-title">About The Plot Twist</h2>
+  <p class="section-sub">Where pipe cleaners become little works of art.</p>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>It started with a simple realization: life can be a bit too "straight-lined." We wanted to create something that defied the ordinary, turning rigid, fuzzy wires into soft, whimsical treasures. We realized that a single piece of wire is just a line until you give it a little imagination. Once you add that first turn, the story begins to change.</p>
+      <p>We chose this name because it represents exactly what we do. We take a humble chenille stem and—with a few clever bends—turn it into a blooming flower, a playful heart, or a custom creation. It's the "unexpected" part of crafting that we love the most.</p>
+      <p>In every piece we make, there is a literal twist in the wire and a creative twist in the design. Our mission is simple: Twist your imagination into something beautiful.</p>
+      <div class="about-quote">"Every piece is carefully crafted by hand, making each one a little different — just like a good plot twist."</div>
+    </div>
+    <div class="about-badges">
+      <div class="about-badge"><span class="about-badge-icon">🌿</span><div class="about-badge-text"><strong>100% Handmade</strong><span>Twisted and shaped by hand, every single time.</span></div></div>
+      <div class="about-badge"><span class="about-badge-icon">✨</span><div class="about-badge-text"><strong>Truly Unique</strong><span>No two pieces are exactly alike — that's the magic.</span></div></div>
+      <div class="about-badge"><span class="about-badge-icon">♥</span><div class="about-badge-text"><strong>Made with Love</strong><span>Every charm carries a little piece of the maker's heart.</span></div></div>
+      <div class="about-badge"><span class="about-badge-icon">🎁</span><div class="about-badge-text"><strong>Perfect Gift</strong><span>For someone special — or a little treat for yourself.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label">✦ say hello ✦</div>
+  <h2 class="section-title">Get in Touch</h2>
+  <p class="section-sub">Custom orders, questions, or just here to say hi? We love hearing from you 💛</p>
+  <div class="contact-card reveal">
+    <p class="contact-tag">"Thank you for supporting handmade! ♥<br>Your order helps a small maker do what they love."</p>
+    <div class="contact-links">
+      <a href="https://www.facebook.com/profile.php?id=61588847828431" class="contact-link" target="_blank" rel="noopener">📘 facebook.com/theplottwist</a>
+      <a href="#" class="contact-link">📸 @theplottwist on Instagram</a>
+      <a href="#" class="contact-link">🛍️ Find us on Shopee / Carousell</a>
+    </div>
+    <div class="contact-form">
+      <div><label>Your Name</label><input type="text" placeholder="e.g. Sam"></div>
+      <div><label>Email</label><input type="email" placeholder="you@email.com"></div>
+      <div><label>Message</label><textarea rows="4" placeholder="Custom order request? Kind words? We'd love to hear it!"></textarea></div>
+      <button class="contact-submit" id="submitBtn">Send with Love 💌</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">The Plot <span>Twist</span></div>
+  <p>✦ handmade with love ✦</p>
+  <p style="margin-top:1rem;font-size:0.85rem;">© 2026 The Plot Twist. Each charm is unique, just like you. 🌸</p>
+</footer>
+
+<script>
+  // Sparkles
+  const sparkleContainer = document.getElementById('sparkles');
+  const symbols = ['✦','✧','⋆','★','✺','♥','·'];
+  for (let i = 0; i < 40; i++) {
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = Math.random() * 4 + 's';
+    s.style.animationDuration = (2 + Math.random() * 3) + 's';
+    s.style.fontSize = (0.6 + Math.random() * 1.2) + 'rem';
+    sparkleContainer.appendChild(s);
+  }
+
+  const storageKey = 'plotTwistProducts';
+  const adminSessionKey = 'plotTwistAdminSession';
+  const productGrid = document.getElementById('productGrid');
+  const adminList = document.getElementById('adminList');
+  const adminPanel = document.getElementById('adminPanel');
+  const adminStatus = document.getElementById('adminStatus');
+  const adminLogin = document.getElementById('adminLogin');
+  const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+  const adminPassword = document.getElementById('adminPassword');
+  const adminOverlay = document.getElementById('adminOverlay');
+  const adminClose = document.getElementById('adminClose');
+  const adminNav = document.getElementById('adminNav');
+
+  const defaultProducts = [
+    {
+      id: crypto.randomUUID(),
+      name: 'Pink Donut Charm',
+      desc: 'A soft, fuzzy ring of sweetness — sprinkled with tiny beads for extra magic.',
+      img: 'images/pink-donut-charm.png',
+      tag: 'Bestseller ✨',
+      dot: '#f472b6',
+      price: '₱ 25.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Blue Jellyfish',
+      desc: 'Floating on your keychain — wiggly tentacles and all. Impossibly cute.',
+      img: 'images/blue-jellyfish.png',
+      tag: 'Ocean Vibes 🌊',
+      dot: '#60a5fa',
+      price: '₱ 45.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Fluffy Penguin',
+      desc: "Pink and white fluff piled together into the world's most loveable bird.",
+      img: 'images/fluffy-penguin.png',
+      tag: 'Fan Fave 🐧',
+      dot: '#f9a8d4',
+      price: '₱ 15.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'White Tulip',
+      desc: 'A single, pristine tulip that never wilts. For the ones who love gentle things.',
+      img: 'images/white-tulip.png',
+      tag: 'Elegant 🌷',
+      dot: '#d1fae5',
+      price: '₱ 15.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Cherry Duo',
+      desc: 'Two fuzzy cherries, tied together with a little green bow. Twice the charm.',
+      img: 'images/cherry-duo.png',
+      tag: 'Sweet Pair 🍒',
+      dot: '#f43f5e',
+      price: '₱ 15.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Silly Blue Frog',
+      desc: 'Tongue out, arms wide — this little frog lives life to the fullest.',
+      img: 'images/silly-blue-frog.png',
+      tag: 'Too Cute 🐸',
+      dot: '#7dd3fc',
+      price: '₱ 35.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Pink Donut Charm 2',
+      desc: 'Your initial, fuzzy and fabulous on a hot-pink circle. Make it yours.',
+      img: 'images/letter-charm-s.png',
+      tag: 'Personalized 💌',
+      dot: '#ec4899',
+      price: '₱ 25.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Cotton Candy Pop',
+      desc: "Soft pink swirled on white — a lollipop that's almost too pretty to carry.",
+      img: 'images/cotton-candy-pop.png',
+      tag: 'Dreamy 🍭',
+      dot: '#fbcfe8',
+      price: '₱ 15.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Sunflower',
+      desc: 'Bright yellow petals, dark fuzzy center — instant sunshine for your bag.',
+      img: 'images/sunflower.png',
+      tag: 'Happy Days 🌻',
+      dot: '#fde047',
+      price: '₱ 20.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Fuzzy Fries',
+      desc: 'The snack you can actually keep forever. Golden, salty-looking, and absurdly charming.',
+      img: 'images/fuzzy-fries.png',
+      tag: 'Iconic 🍟',
+      dot: '#fbbf24',
+      price: '₱ 35.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Everlasting Heart Bouquet',
+      desc: 'A bundle of fuzzy blooms that never fade — blooming with love and handmade charm.',
+      img: 'images/heart bouquet.jfif',
+      tag: 'Forever Bloom 💐',
+      dot: '#f472b6',
+      price: '₱ 25.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Choco-Cream Drizzle',
+      desc: 'A rich, chocolatey base topped with a swirl of handmade sweetness — the coziest treat in the shop.',
+      img: 'images/brown donut.jfif',
+      tag: 'Cozy Vibes 🍫',
+      dot: '#92400e',
+      price: '₱ 25.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Pink Sprinkled Donut',
+      desc: 'A bright swirl of strawberry frosting topped with fuzzy candy gems — a handmade treat for your sweetest adventures.',
+      img: 'images/pink_sprinkled.jfif',
+      tag: 'Sweet Treat 🍩',
+      dot: '#f472b6',
+      price: '₱ 25.00',
+      soldOut: false
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'Triple Heart',
+      desc: 'Three layers of affection in shades of pink—hand-twisted to keep your heart full and your keys cozy.',
+      img: 'images/triple_heart.jfif',    
+      tag: 'Love Triple ♥',
+      dot: '#f472b6',
+      price: '₱15.00',
+      soldOut: false
+    }
+  ];
+
+  const adminPasswordValue = 'mariella26';
+
+  const getProducts = () => {
+    const raw = localStorage.getItem(storageKey);
+    if (raw) {
+      try { return JSON.parse(raw); } catch { return [...defaultProducts]; }
+    }
+    return [...defaultProducts];
+  };
+
+  const saveProducts = productsToSave => {
+    localStorage.setItem(storageKey, JSON.stringify(productsToSave));
+  };
+
+  let products = getProducts();
+
+  const renderProducts = () => {
+    productGrid.innerHTML = '';
+    products.forEach(product => {
+      const card = document.createElement('div');
+      card.className = `product-card ${product.soldOut ? 'sold-out' : ''}`;
+      card.dataset.id = product.id;
+      card.dataset.name = product.name;
+      card.dataset.desc = product.desc;
+      card.dataset.img = product.img;
+      card.dataset.price = product.price;
+      card.dataset.sold = product.soldOut ? 'true' : 'false';
+      card.innerHTML = `
+        <div class="product-img-wrap">
+          <img src="${product.img}" alt="${product.name}" loading="lazy">
+          ${product.tag ? `<span class="product-tag">${product.tag}</span>` : ''}
+          ${product.soldOut ? '<span class="product-sold-badge">Sold Out</span>' : ''}
+        </div>
+        <div class="product-info">
+          <div class="product-name"><span class="product-dot" style="background:${product.dot || '#f472b6'}"></span>${product.name}</div>
+          <p class="product-desc">${product.desc}</p>
+          <div class="product-price">${product.price}</div>
+          ${product.soldOut ? '<div class="product-sold">Currently sold out</div>' : ''}
+        </div>
+      `;
+      productGrid.appendChild(card);
+    });
+
+    document.querySelectorAll('.product-card').forEach(el => cardObs.observe(el));
+  };
+
+  const renderAdminList = () => {
+    adminList.innerHTML = '';
+    products.forEach(product => {
+      const item = document.createElement('div');
+      item.className = 'admin-item';
+      item.innerHTML = `
+        <div>
+          <div class="admin-item-title">${product.name}</div>
+          <div class="admin-item-meta">${product.price} • ${product.soldOut ? 'Sold out' : 'Available'}</div>
+        </div>
+        <div class="admin-item-actions">
+          <button class="admin-btn" data-action="edit" data-id="${product.id}">Edit</button>
+          <button class="admin-btn" data-action="delete" data-id="${product.id}">Delete</button>
+        </div>
+      `;
+      adminList.appendChild(item);
+    });
+  };
+
+  const setAdminState = isLoggedIn => {
+    if (isLoggedIn) {
+      adminPanel.classList.add('active');
+      adminLogin.style.display = 'none';
+      adminLogoutBtn.style.display = 'inline-flex';
+      adminStatus.textContent = 'You are logged in. Create or update products below.';
+      sessionStorage.setItem(adminSessionKey, 'true');
+    } else {
+      adminPanel.classList.remove('active');
+      adminLogin.style.display = 'grid';
+      adminLogoutBtn.style.display = 'none';
+      adminStatus.textContent = 'Login to add or update products.';
+      sessionStorage.removeItem(adminSessionKey);
+    }
+  };
+
+  const loadAdminSession = () => {
+    setAdminState(sessionStorage.getItem(adminSessionKey) === 'true');
+  };
+
+  const resetForm = () => {
+    document.getElementById('adminForm').reset();
+    document.getElementById('productId').value = '';
+  };
+
+  const openAdmin = () => {
+    adminOverlay.classList.add('open');
+    adminOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeAdmin = () => {
+    adminOverlay.classList.remove('open');
+    adminOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  adminNav.addEventListener('click', e => {
+    e.preventDefault();
+    openAdmin();
+  });
+
+  adminClose.addEventListener('click', closeAdmin);
+  adminOverlay.addEventListener('click', e => {
+    if (e.target === adminOverlay) closeAdmin();
+  });
+
+  document.getElementById('adminLoginBtn').addEventListener('click', () => {
+    if (adminPassword.value === adminPasswordValue) {
+      setAdminState(true);
+      adminPassword.value = '';
+    } else {
+      alert('Incorrect password.');
+    }
+  });
+
+  adminLogoutBtn.addEventListener('click', () => setAdminState(false));
+
+  document.getElementById('saveProductBtn').addEventListener('click', () => {
+    const name = document.getElementById('productName').value.trim();
+    const desc = document.getElementById('productDesc').value.trim();
+    const img = document.getElementById('productImage').value.trim();
+    const price = document.getElementById('productPrice').value.trim();
+    const tag = document.getElementById('productTag').value.trim();
+    const dot = document.getElementById('productDot').value.trim();
+    const soldOut = document.getElementById('productStatus').value === 'sold';
+    const id = document.getElementById('productId').value;
+
+    if (!name || !desc || !img || !price) {
+      alert('Please fill out name, description, image, and price.');
+      return;
+    }
+
+    if (id) {
+      products = products.map(product => product.id === id ? { ...product, name, desc, img, price, tag, dot, soldOut } : product);
+    } else {
+      products.unshift({ id: crypto.randomUUID(), name, desc, img, price, tag, dot, soldOut });
+    }
+
+    saveProducts(products);
+    renderProducts();
+    renderAdminList();
+    resetForm();
+  });
+
+  document.getElementById('resetFormBtn').addEventListener('click', resetForm);
+
+  adminList.addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    if (btn.dataset.action === 'delete') {
+      products = products.filter(product => product.id !== id);
+      saveProducts(products);
+      renderProducts();
+      renderAdminList();
+      return;
+    }
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+    document.getElementById('productName').value = product.name;
+    document.getElementById('productDesc').value = product.desc;
+    document.getElementById('productImage').value = product.img;
+    document.getElementById('productPrice').value = product.price;
+    document.getElementById('productTag').value = product.tag || '';
+    document.getElementById('productDot').value = product.dot || '';
+    document.getElementById('productStatus').value = product.soldOut ? 'sold' : 'available';
+    document.getElementById('productId').value = product.id;
+  });
+
+  // Modal
+  productGrid.addEventListener('click', e => {
+    const card = e.target.closest('.product-card');
+    if (!card) return;
+    document.getElementById('modalImg').src = card.dataset.img;
+    document.getElementById('modalImg').alt = card.dataset.name;
+    document.getElementById('modalName').textContent = card.dataset.name;
+    document.getElementById('modalPrice').textContent = card.dataset.price || '';
+    document.getElementById('modalSold').textContent = card.dataset.sold === 'true' ? 'Sold out for now' : '';
+    document.getElementById('modalDesc').textContent = card.dataset.desc;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === document.getElementById('modalOverlay')) closeModal(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeModal();
+      closeAdmin();
+    }
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Card stagger reveal
+  const cardObs = new IntersectionObserver(entries => {
+    entries.forEach((e, idx) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), idx * 70);
+        cardObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  renderProducts();
+  renderAdminList();
+  loadAdminSession();
+
+  // Submit
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    alert('Thank you for your message! 💛\nWe\'ll get back to you soon!');
+  });
+</script>
+</body>
+</html>
